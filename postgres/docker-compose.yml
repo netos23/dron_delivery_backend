@@ -2,13 +2,13 @@ version: "3.9"
 services:
   full_db:
     container_name: full_db
-    image: postgres:13.4
+    image: postgres:13.12
     ports:
       - "5432:5432"
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=cool_postgres
-      - POSTGRES_DB=cool
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
     volumes:
       - './target/postgres-data:/var/lib/postgresql/data'
 
