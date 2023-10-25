@@ -20,7 +20,7 @@ COPY ./requirements.txt /tmp/
 RUN python3 -m pip install -r /tmp/requirements.txt
 
 COPY ./uwsgi/uwsgi.ini /etc/
-COPY ./festival_mira/ /code/
+COPY ./core/ /code/
 
 WORKDIR /code/
 
