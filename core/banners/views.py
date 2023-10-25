@@ -2,8 +2,8 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
-from models import BannerModel
-from serializers import BannerSerializer
+from .models import BannerModel
+from .serializers import BannerSerializer
 
 
 class BannerView(generics.GenericAPIView):
