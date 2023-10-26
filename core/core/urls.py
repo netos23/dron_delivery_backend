@@ -18,6 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 from django.urls import path, include
+from django.views.generic import RedirectView
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 
@@ -57,6 +58,8 @@ urlpatterns = [
 
                   path("", include("django.contrib.auth.urls")),
                   path("dashboard/", include('dashboard.urls')),
+                  path("", RedirectView.as_view(url='/admin/')),
+                  # path("/", admin.site.urls),
               ]
 
 for app in settings.APP_MODULES:
