@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "pictures",
     "dashboard",
     "satellites",
+    "geozones",
 ]
 
 MIDDLEWARE = [
