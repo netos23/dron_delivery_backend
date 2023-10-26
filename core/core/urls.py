@@ -56,6 +56,8 @@ urlpatterns = [
 
                   path("satellites/", include("satellites.urls")),
 
+                  path("geozones/", include("geozones.urls")),
+
                   path("admin/", admin.site.urls),
 
                   path("", include("django.contrib.auth.urls")),
