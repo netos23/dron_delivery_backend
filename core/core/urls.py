@@ -29,7 +29,7 @@ from django.urls import path
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Festival Mira API",
+        title="StarStalker API",
         default_version="v1",
         description="",
         terms_of_service="https://www.google.com/policies/terms/",
@@ -37,7 +37,7 @@ schema_view = get_schema_view(
     ),
     public=False,
 )
-admin.site.site_header = 'MiraMessTeam'
+admin.site.site_header = 'TeamForWin'
 admin.site.index_title = "Панель администратора"
 urlpatterns = [
                   url(
@@ -64,7 +64,7 @@ urlpatterns = [
                   path("dashboard/", include('dashboard.urls')),
                   path("", RedirectView.as_view(url='/admin/')),
                   # path("/", admin.site.urls),
-              ]
+              ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 for app in settings.APP_MODULES:
     add_module_urls(app, urlpatterns)

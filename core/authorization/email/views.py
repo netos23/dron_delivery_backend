@@ -4,12 +4,17 @@ from rest_framework import status
 from rest_framework.response import Response
 
 from .services import EmailPart1, EmailPart2
+from ..models import Users
 from ..serializers import AuthResponseSerializer
+
+
+def validate_email(email):
+    return Users.objects.filter(email=email).exist()
 
 
 class EmailPart1View(generics.GenericAPIView):
     class EmailPart1RequestSerializer(serializers.Serializer):
-        email = serializers.CharField(max_length=128)
+        email = serializers.CharField(max_length=128, validators=[validate_email])
         digits = serializers.IntegerField(min_value=3, max_value=9, default=3, required=False)
 
     serializer_class = serializers.Serializer

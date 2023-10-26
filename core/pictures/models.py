@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.timezone import now
 
 
-class PictureModel(models.Model):
+class SatellitePictureModel(models.Model):
     link = models.CharField(max_length=256, null=True, blank=True)
     lat_1 = models.FloatField(null=True)
     lon_1 = models.FloatField(null=True)
@@ -13,3 +13,10 @@ class PictureModel(models.Model):
 
     def __str__(self):
         return f'{str(self.link)}'
+
+class PictureModel(models.Model):
+    url = models.ImageField(max_length=256, upload_to='pictures/', null=True)
+    link = models.CharField(max_length=256, null=True)
+
+    def __str__(self):
+        return f'{str(self.url)}'
