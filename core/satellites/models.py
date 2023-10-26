@@ -1,3 +1,5 @@
+from typing import Tuple
+
 from django.db import models
 
 
@@ -22,6 +24,10 @@ class SatelliteModel(models.Model):
     picture = models.URLField(null=True)
     is_active = models.BooleanField(default=True)
     resolution = models.FloatField()
+
+    @property
+    def tle_lines(self) -> Tuple[str, str]:
+        return "", ""
 
 
 class PositionModel(models.Model):
