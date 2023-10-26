@@ -54,6 +54,8 @@ urlpatterns = [
 
                   path("banners/", include("banners.urls")),
 
+                  path("satellites/", include("satellites.urls")),
+
                   path("admin/", admin.site.urls),
 
                   path("", include("django.contrib.auth.urls")),
