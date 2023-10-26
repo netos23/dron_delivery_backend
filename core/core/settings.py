@@ -27,7 +27,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "*.fbtw.ru"]
+ALLOWED_HOSTS = ["127.0.0.1", "it-profession.fbtw.ru"]
 
 APP_MODULES = []
 # Application definition
