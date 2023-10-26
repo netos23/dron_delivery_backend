@@ -226,6 +226,20 @@ LOGGING = {
         },
     },
 }
+
+REST_FRAMEWORK = {
+    "EXCEPTION_HANDLER": "utils.handlers.exceptions_handler",
+    "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.AcceptHeaderVersioning",
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        'rest_framework.authentication.SessionAuthentication',
+        # "rest_framework_simplejwt.authentication.JWTAuthentication"
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [  # "rest_framework.permissions.IsAuthenticated"
+        'rest_framework.permissions.AllowAny'
+    ],
+
+    "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
+}
 EMAIL_USE_SSL = True
 EMAIL_HOST = "smtp.yandex.ru"
 EMAIL_PORT = 587

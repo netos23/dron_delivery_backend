@@ -7,7 +7,7 @@ class BaseRestException(APIException):
         self.error_text = str(error_text)
         self.message = str(message)
         self.status = 0
-        self.status_code = status_code
+        # self.status_code = status_code
         if error_code is not None:
             self.error_code = error_code
         elif not message:

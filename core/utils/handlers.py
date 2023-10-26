@@ -4,7 +4,7 @@ from django.conf import settings
 from rest_framework.exceptions import ValidationError, APIException
 from rest_framework.response import Response
 
-from backend.utils.exceptions import BaseRestException
+from utils.exceptions import BaseRestException
 
 
 def exceptions_handler(exc, context):
