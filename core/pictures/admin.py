@@ -9,7 +9,7 @@ from .models import PictureModel
 
 @admin.register(PictureModel)
 class PictureAdmin(admin.ModelAdmin):
-    list_display = ('id', "picture_image",   "created_at", "link",)
+    list_display = ('id', "picture_image",   "created_at", "expiration_date")
 
     def picture_image(self, obj):
         return mark_safe(f'<img src="{obj.link or ""}" width="150" height="150" /> ')
