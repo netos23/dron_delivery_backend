@@ -23,7 +23,7 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 
 from core import settings
-from utils.modules import add_module_urls
+from utils.modules import add_module_urls, BothHttpAndHttpsSchemaGenerator
 from django.contrib import admin
 from django.urls import path
 
@@ -36,6 +36,7 @@ schema_view = get_schema_view(
         license=openapi.License(name="BSD License"),
     ),
     public=False,
+    generator_class=BothHttpAndHttpsSchemaGenerator,
 )
 admin.site.site_header = 'TeamForWin'
 admin.site.index_title = "Панель администратора"
