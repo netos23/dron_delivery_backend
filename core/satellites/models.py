@@ -2,7 +2,7 @@ from django.db import models
 
 
 class SatelliteModel(models.Model):
-    bject_name = models.CharField(max_length=50)
+    object_name = models.CharField(max_length=50)
     object_id = models.CharField(max_length=20)
     epoch = models.DateTimeField()
     mean_motion = models.FloatField()
@@ -19,6 +19,7 @@ class SatelliteModel(models.Model):
     bstar = models.FloatField()
     mean_motion_dot = models.FloatField()
     mean_motion_ddot = models.FloatField()
+    picture = models.URLField(null=True)
     is_active = models.BooleanField(default=True)
     resolution = models.FloatField()
 
