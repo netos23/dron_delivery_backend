@@ -39,7 +39,7 @@ class EmailPart1:
         recipient = []
         recipient.append(email)
         html_letter = self.make_message(code)
-        subject = str(_("Notice from farm service"))
+        subject = str(_("Notice from StarStalker service"))
         msg = MIMEMultipart()
         msg["Subject"] = subject
         msg["From"] = settings.EMAIL_HOST_USER
