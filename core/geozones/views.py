@@ -28,7 +28,7 @@ class GeozoneView(generics.GenericAPIView,
             geozones = GeozoneModel.objects.filter(Q(user_id__isnull=show_public))
         return Response(data=self.serializer_class(geozones, many=True).data, status=status.HTTP_200_OK)
 
-    @swagger_auto_schema(query_serializer=serializer_class(), responses={"201": serializer_class()})
+    @swagger_auto_schema(request_body=serializer_class(), responses={"201": serializer_class()})
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
