@@ -61,7 +61,7 @@ class SatelliteByZone(generics.GenericAPIView):
             sat_id = sat["satellite"]
             zones_ser = self.serializer_class.PositionSerializer(
                               data=qs_pos.filter(satellite=sat_id).all(), many=True)
-            zones_ser.is_valid()
+            zones_ser.is_valid(raise_exception=True)
             json_.append({"sat_id": sat_id,
                           "position": zones_ser.data})
         return Response(data=json_, status=200)
