@@ -29,10 +29,10 @@ services:
     deploy:
       resources:
         limits:
-          memory: 1500M
+          memory: "1500M"
         reservations:
-          cpus: 0.25
-          memory: 128M
+          cpus: "0.25"
+          memory: "128M"
   ingress:
     image: 'it-profession-ingress:1.0'
     build: ./ingress/
