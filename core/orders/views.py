@@ -1,7 +1,8 @@
-from rest_framework import generics
+from rest_framework import generics, permissions
 
 from orders.models import OrderModel, TarifModel
 from orders.serilizers import OrderSerializer, TarifSerializer
+from rest_framework_simplejwt import authentication
 
 
 # Create your views here.
@@ -11,6 +12,9 @@ class CreateOrderAPIView(generics.CreateAPIView):
 
 
 class ListOrderView(generics.ListAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    authentication_classes = (authentication.JWTAuthentication,)
+
     serializer_class = OrderSerializer
     queryset = OrderModel.objects.all()
 
