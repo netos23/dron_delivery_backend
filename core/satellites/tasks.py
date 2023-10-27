@@ -1,6 +1,6 @@
 import math
 import time
-from datetime import datetime, timedelta
+from datetime import timedelta
 from typing import Tuple, Literal
 
 from django.utils import timezone
@@ -193,13 +193,13 @@ def ecef_to_llh(x: float, y: float, z: float) -> Tuple[float, float]:
 
 
 def _update_positions():
-    minutes_in_month = 30 * 24 * 60
+    seconds_in_month = 30 * 24 * 60 * 60
 
     logger.info("Start updating positions")
     start_time = time.time()
 
-    positions_dates = [timezone.now() + timedelta(minutes=delta_minute)
-                       for delta_minute in range(minutes_in_month + 1)]
+    positions_dates = [timezone.now() + timedelta(minutes=delta_second)
+                       for delta_second in range(seconds_in_month + 1)]
     satellites = SatelliteModel.objects.filter(is_active=True).all()
     positions = []
     for satellite in satellites:
