@@ -94,7 +94,7 @@ class TLESatelliteRepr:
 
     @property
     def arg_of_perigee(self) -> str:
-        s = format(self._satellite.arg_of_perigee, "3.4f")
+        s = format(self._satellite.arg_of_pericenter, "3.4f")
         return " " * (8 - len(s)) + s
 
     @property

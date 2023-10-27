@@ -27,7 +27,7 @@ class SatelliteModel(models.Model):
     ra_of_asc_node = models.FloatField(verbose_name="Right Ascension of the Ascending Node")
     mean_motion = models.FloatField()
     eccentricity = models.FloatField()
-    arg_of_perigee = models.FloatField(verbose_name="Argument of Perigee")
+    arg_of_pericenter = models.FloatField(verbose_name="Argument of Perigee")
     mean_anomaly = models.FloatField()
     rev_at_epoch = models.IntegerField()
 
