@@ -3,5 +3,7 @@ from django.urls import path
 from orders import views
 
 urlpatterns = [
-    path("", views.CreateOrderAPIView.as_view())
+    path("", views.CreateOrderAPIView.as_view()),
+    path("tarifs/", views.GetAllTarifsAPIView.as_view())
+
 ]
