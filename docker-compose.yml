@@ -26,6 +26,13 @@ services:
       - /it_profession/.env
     volumes:
       - './target/postgres-data:/var/lib/postgresql/data'
+    deploy:
+      resources:
+        limits:
+          memory: 1500M
+        reservations:
+          cpus: 0.25
+          memory: 128M
   ingress:
     image: 'it-profession-ingress:1.0'
     build: ./ingress/
