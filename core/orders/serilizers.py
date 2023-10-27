@@ -10,6 +10,15 @@ class OrderSerializer(serializers.ModelSerializer):
         model = OrderModel
         fields = '__all__'
 
+class RequestOrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderModel
+        exclude = ('user', 'price', 'status')
+
+
+
+
+
 
 class TarifSerializer(serializers.ModelSerializer):
     class Meta:
