@@ -223,6 +223,9 @@ def _update_positions():
             position.satellite = satellite
             positions.append(position)
 
+        if positions:
+            PositionModel.objects.bulk_create(positions)
+
     logger.info(f"Successfully calculated positions. Time: {time.time() - start_time:.2f}")
 
 
