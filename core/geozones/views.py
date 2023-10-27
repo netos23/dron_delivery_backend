@@ -30,7 +30,12 @@ class GeozoneView(generics.GenericAPIView,
 
     @swagger_auto_schema(request_body=serializer_class(), responses={"201": serializer_class()})
     def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
+        if request.user:
+            user = request.user.id
+        else:
+            user = kwargs.get('user')
+        request.data['user_id'] = request.user.id if request.user else None
+        return self.create(request, *args, **kwargs, user=user)
 
 
 class DeprecatedGeozoneView(generics.GenericAPIView,

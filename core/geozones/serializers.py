@@ -61,15 +61,13 @@ class DeprecatedGeozoneSerializer(serializers.Serializer):
     wkt = WktField()
 
     def create(self, validated_data):
-        del validated_data["id"]
-        return DeprecatedGeozoneModel.objects.create(**validated_data)
+        return DeprecatedGeozoneModel.objects.create(name=validated_data['name'], wkt=validated_data['wkt'])
 
 
 class GeozoneSerializer(DeprecatedGeozoneSerializer):
-    user = serializers.IntegerField(required=False)
+    user_id = serializers.IntegerField(required=False)
 
     def create(self, validated_data):
-        del validated_data["id"]
         return GeozoneModel.objects.create(**validated_data)
 
 
