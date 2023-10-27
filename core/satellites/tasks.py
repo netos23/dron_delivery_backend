@@ -223,7 +223,6 @@ def _update_positions():
             position.satellite = satellite
             positions.append(position)
 
-
     logger.info(f"Successfully calculated positions. Time: {time.time() - start_time:.2f}")
 
 
