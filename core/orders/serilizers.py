@@ -2,7 +2,7 @@ from typing import List
 
 from rest_framework import serializers
 
-from orders.models import OrderModel, TarifModel
+from orders.models import OrderModel, TarifModel, PluginModel
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -23,4 +23,9 @@ class RequestOrderSerializer(serializers.ModelSerializer):
 class TarifSerializer(serializers.ModelSerializer):
     class Meta:
         model = TarifModel
+        fields = '__all__'
+
+class PluginSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PluginModel
         fields = '__all__'

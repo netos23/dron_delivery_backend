@@ -1,8 +1,8 @@
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 
-from orders.models import OrderModel, TarifModel
-from orders.serilizers import OrderSerializer, TarifSerializer, RequestOrderSerializer
+from orders.models import OrderModel, TarifModel, PluginModel
+from orders.serilizers import OrderSerializer, TarifSerializer, RequestOrderSerializer, PluginSerializer
 from rest_framework_simplejwt import authentication
 
 
@@ -47,3 +47,7 @@ class ListOrderView(generics.ListAPIView):
 class GetAllTarifsAPIView(generics.ListAPIView):
     serializer_class = TarifSerializer
     queryset = TarifModel.objects.all()
+
+class GetAllPluginsAPIView(generics.ListAPIView):
+    serializer_class = PluginSerializer
+    queryset = PluginModel.objects.all()
