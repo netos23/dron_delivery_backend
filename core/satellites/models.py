@@ -1,6 +1,7 @@
 from typing import Tuple
 
-from django.db import models
+from django.contrib.gis.geos import Point
+from django.contrib.gis.db import models
 
 
 class SatelliteModel(models.Model):
@@ -39,5 +40,7 @@ class SatelliteModel(models.Model):
 class PositionModel(models.Model):
     lat = models.FloatField()
     lon = models.FloatField()
-    createdAt = models.DateTimeField()
+    point = models.PointField(null=True, srid=4326)
+    created_at = models.DateTimeField()
     satellite = models.ForeignKey(SatelliteModel, on_delete=models.CASCADE)
+

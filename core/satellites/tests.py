@@ -1,10 +1,13 @@
 import pytz
-from datetime import datetime
+from datetime import datetime, timedelta
+from typing import List
 
 from django.test import TestCase
+from django.db.models import Q
 
 from satellites.models import SatelliteModel, PositionModel
 from satellites.tasks import _update_positions
+from geozones.models import GeozoneModel
 
 
 class CalcPositionsTest(TestCase):
@@ -32,13 +35,33 @@ class CalcPositionsTest(TestCase):
         sat.rev_at_epoch = 56353
         sat.save()
 
+        _update_positions(0.1)
+
     def test_update_positions(self):
-        _update_positions()
         self.assertGreater(PositionModel.objects.count(), 0)
         pos = PositionModel.objects.first()
         print("Longitude: {:.2f}\n"
               "Latitude: {:.2f}\n"
               "When: {}\n"
               "Sat name: {}".format(pos.lon, pos.lat,
-                                    pos.createdAt.strftime("%a %b %d %H:%M:%S %Y"),
+                                    pos.created_at.strftime("%a %b %d %H:%M:%S %Y"),
                                     pos.satellite.object_name))
+
+    def test_find_satellite_by_geozone(self):
+        pos = PositionModel.objects.first()
+        last_date = pos.created_at - timedelta(days=1)
+        future_date = pos.created_at + timedelta(days=1)
+
+        geozone = GeozoneModel()
+        geozone.wkt = f"POLYGON (({pos.lat - 1} {pos.lon - 1}, {pos.lat + 1} " \
+                      f"{pos.lon - 1}, {pos.lat + 1} {pos.lon + 1}, " \
+                      f"{pos.lat - 1} {pos.lon + 1}, {pos.lat - 1} {pos.lon - 1}))"
+        geozone.name = "test"
+        geozone.save()
+        self.assertTrue(geozone.geom.contains(pos.point))
+        self.assertGreater(len(self.get_positions(geozone.geom, last_date)), 0)
+        self.assertEqual(len(self.get_positions(geozone.geom, future_date)), 0)
+
+    @staticmethod
+    def get_positions(polygon, date) -> List[PositionModel]:
+        return PositionModel.objects.filter(Q(point__within=polygon) & Q(created_at__gte=date)).all()
