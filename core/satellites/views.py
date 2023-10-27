@@ -1,7 +1,5 @@
-from typing import List
-
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework import generics, status, mixins
+from rest_framework import generics, status
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from django.db.models import Q
