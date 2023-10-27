@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "dashboard",
     "satellites",
     "geozones",
+    "orders"
 ]
 
 MIDDLEWARE = [
