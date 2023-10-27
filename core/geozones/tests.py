@@ -18,7 +18,7 @@ class GeozoneTest(TestCase):
         self.geozone = geozone
 
         depr_geo = DeprecatedGeozoneModel()
-        depr_geo.wkt = "MULTIPOLYGON (((30 20, 45 40, 10 40, 30 20)), ((15 5, 40 10, 10 20, 5 10, 15 5)))"
+        depr_geo.wkt = "POLYGON ((0 0, 1.5 0, 1.5 1, 0 1.5, 0 0))"
         depr_geo.name = "test"
         depr_geo.save()
         self.depr_geo = depr_geo
@@ -34,3 +34,9 @@ class GeozoneTest(TestCase):
         self.assertEqual(geo_original, geo1)
         geo2 = GeozoneModel.objects.exclude(geom__contains=self.point2).first()
         self.assertEqual(geo_original, geo2)
+
+        dgeo_original = self.depr_geo
+        dgeo1 = DeprecatedGeozoneModel.objects.filter(geom__contains=self.point1).first()
+        self.assertEqual(dgeo_original, dgeo1)
+        dgeo2 = DeprecatedGeozoneModel.objects.exclude(geom__contains=self.point2).first()
+        self.assertEqual(dgeo_original, dgeo2)
