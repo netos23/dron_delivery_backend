@@ -1,6 +1,3 @@
-from typing import Tuple
-
-from django.contrib.gis.geos import Point
 from django.contrib.gis.db import models
 
 
@@ -43,4 +40,3 @@ class PositionModel(models.Model):
     point = models.PointField(null=True, srid=4326)
     created_at = models.DateTimeField()
     satellite = models.ForeignKey(SatelliteModel, on_delete=models.CASCADE)
-
