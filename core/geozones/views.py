@@ -16,7 +16,7 @@ class GeozoneView(generics.GenericAPIView,
     serializer_class = GeozoneSerializer
     renderer_classes = [JSONRenderer]
 
-    @swagger_auto_schema(query_serializer=request_serializer(), responses={200: serializer_class()})
+    @swagger_auto_schema(query_serializer=request_serializer(), responses={200: serializer_class(many=True)})
     def get(self, request):
         serializer = self.request_serializer(data=request.query_params)
         serializer.is_valid(raise_exception=True)
@@ -41,7 +41,7 @@ class DeprecatedGeozoneView(generics.GenericAPIView,
     serializer_class = DeprecatedGeozoneSerializer
     renderer_classes = [JSONRenderer]
 
-    @swagger_auto_schema(responses={200: serializer_class()})
+    @swagger_auto_schema(responses={200: serializer_class(many=True)})
     def get(self, request):
         return Response(data=self.serializer_class(DeprecatedGeozoneModel.objects.all(), many=True).data,
                         status=status.HTTP_200_OK)
