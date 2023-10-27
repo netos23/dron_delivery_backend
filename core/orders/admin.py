@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from orders.models import TarifModel, OrderModel
+from orders.models import TarifModel, OrderModel, PluginModel
 
 
 @admin.register(TarifModel)
@@ -14,3 +14,8 @@ class TarifModelAdmin(admin.ModelAdmin):
 @admin.register(OrderModel)
 class OrderModelAdmin(admin.ModelAdmin):
     list_display = ('id', "user", "tarif", "created_at", "geozone")
+
+
+@admin.register(PluginModel)
+class PluginModelAdmin(admin.ModelAdmin):
+    list_display = ('id', "name", "per_photo", "description", "link")

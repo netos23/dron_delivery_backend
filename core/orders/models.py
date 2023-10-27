@@ -31,3 +31,11 @@ class OrderModel(models.Model):
     tarif = models.ForeignKey(TarifModel, on_delete=models.SET_NULL, null=True)
     price = models.FloatField()
     status = models.IntegerField(default=0, choices=STATUS_TYPE_CHOICES)
+
+
+class PluginModel(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.CharField(max_length=255, null=True, blank=True)
+    per_photo = models.FloatField()
+    link = models.URLField()
+
