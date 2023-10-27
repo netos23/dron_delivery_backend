@@ -1,5 +1,5 @@
-from django.db import models
 from django.utils.timezone import now
+from django.contrib.gis.db import models
 
 
 class SatellitePictureModel(models.Model):
@@ -8,6 +8,7 @@ class SatellitePictureModel(models.Model):
     lon_1 = models.FloatField(null=True)
     lat_2 = models.FloatField(null=True)
     lon_2 = models.FloatField(null=True)
+    polygon = models.MultiPolygonField(srid=4326, null=True)
     created_at = models.DateTimeField(default=now)
     expiration_date = models.DateTimeField(null=True)
 
