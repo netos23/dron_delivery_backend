@@ -6,7 +6,6 @@ from rest_framework.response import Response
 
 from geozones.models import GeozoneModel
 from geozones.serializers import GeozoneSerializer, RequestGeozoneSerializer
-from satellites.models import SatelliteModel
 
 
 class GeozoneView(generics.GenericAPIView):
@@ -27,3 +26,16 @@ class GeozoneView(generics.GenericAPIView):
         else:
             geozones = GeozoneModel.objects.filter(Q(user_id__isnull=show_public))
         return Response(data=self.serializer_class(geozones, many=True).data, status=status.HTTP_200_OK)
+
+
+class DeprecatedGeozoneView(generics.GenericAPIView):
+    """Show all geozones."""
+
+    request_serializer = RequestGeozoneSerializer
+    serializer_class = GeozoneSerializer
+    renderer_classes = [JSONRenderer]
+
+    @swagger_auto_schema(responses={200: serializer_class()})
+    def get(self, request):
+        return Response(data=self.serializer_class(GeozoneModel.objects.all(), many=True).data,
+                        status=status.HTTP_200_OK)
