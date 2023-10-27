@@ -15,6 +15,9 @@ RUN apt install -y libpq-dev postgresql postgresql-contrib
 RUN rm -rf /var/lib/apt/lists/*
 RUN mkdir /code
 
+RUN apt-get install -y gdal-bin libgdal-dev
+RUN apt-get install -y python3-gdal
+RUN apt-get install -y binutils libproj-dev
 
 COPY ./requirements.txt /tmp/
 RUN python3 -m pip install -r /tmp/requirements.txt

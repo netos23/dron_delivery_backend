@@ -19,7 +19,8 @@ services:
       - /it_profession/.env
   full_db:
     container_name: full_db
-    image: postgres:13.12
+    image: postgis/postgis:latest
+    restart: on-failure
     ports:
       - "5432:5432"
     env_file:
