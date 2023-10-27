@@ -170,36 +170,13 @@ class TLESatelliteRepr:
         return self.tle_string1, self.tle_string2
 
 
-def ecef_to_llh(x: float, y: float, z: float) -> Tuple[float, float]:
-    """
-    Converts ECEF coordinates to LLH
-
-    :param x: ECEF x coord
-    :param y: ECEF y coord
-    :param z: ECEF z coord
-    :return: (latitude, longitude)
-    """
-
-    # Constants
-    a = 6378137.0
-    b = 6356752.314245
-    e_sq = 0.00669437999014
-
-    # Calculation
-    p = math.sqrt(x ** 2 + y ** 2)
-    theta = math.atan2(z * a, p * b)
-    lon = math.atan2(y, x)
-    lat = math.atan2(z + e_sq*b*math.sin(theta)**3, p - e_sq*a*math.cos(theta)**3)
-    return math.degrees(lat), math.degrees(lon)
-
-
 def _update_positions(days=30):
     seconds_in_month = int(days * 24 * 60 * 60)
 
     logger.info("Start updating positions")
     start_time = time.time()
 
-    positions_dates = [timezone.now() + timedelta(minutes=delta_second)
+    positions_dates = [timezone.now() + timedelta(seconds=delta_second)
                        for delta_second in range(seconds_in_month + 1)]
     satellites = SatelliteModel.objects.filter(is_active=True).all()
 
@@ -216,8 +193,7 @@ def _update_positions(days=30):
                 positions = []
                 begin_datetime = date
 
-            ll_coords = ecef_to_llh(*predictor.get_only_position(date))
-
+            ll_coords = predictor.get_position(date).position_llh[:2]
             position = PositionModel()
             position.lat, position.lon = ll_coords
             position.point = Point(*ll_coords)
