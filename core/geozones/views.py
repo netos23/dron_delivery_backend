@@ -48,7 +48,7 @@ class DeprecatedGeozoneView(generics.GenericAPIView,
 
     @swagger_auto_schema(request_body=serializer_class(), responses={"201": serializer_class()})
     def post(self, request, *args, **kwargs):
-        serializer = DeprecatedGeozoneSerializer(data=request.body)
+        serializer = DeprecatedGeozoneSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         return self.create(request, *args, **kwargs)
 
