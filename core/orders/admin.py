@@ -18,4 +18,9 @@ class OrderModelAdmin(admin.ModelAdmin):
 
 @admin.register(PluginModel)
 class PluginModelAdmin(admin.ModelAdmin):
-    list_display = ('id', "name", "per_photo", "description", "link")
+    list_display = ('id', "name", "picture_image", "per_photo", "description", "link")
+
+    def picture_image(self, obj):
+        return mark_safe(f'<img src="{obj.picture or ""}" width="150" height="150" /> ')
+
+

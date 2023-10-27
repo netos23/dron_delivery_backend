@@ -38,4 +38,5 @@ class PluginModel(models.Model):
     description = models.CharField(max_length=255, null=True, blank=True)
     per_photo = models.FloatField()
     link = models.URLField()
+    picture = models.URLField(null=True, blank=True)
 
