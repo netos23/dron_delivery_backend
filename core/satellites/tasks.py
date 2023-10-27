@@ -3,6 +3,8 @@ import time
 from datetime import datetime, timedelta
 from typing import Tuple, Literal
 
+from django.utils import timezone
+
 from .models import SatelliteModel, PositionModel
 
 from celery import shared_task
@@ -115,7 +117,6 @@ class TLESatelliteRepr:
     @staticmethod
     def _get_as_exponential_str(num: float) -> str:
         scientific_format = format(abs(num), "e")
-        print(scientific_format)
         scientific_format = scientific_format.replace("e", "").replace(".", "")
         pow_ = int(scientific_format[-2:])
         if pow_ > 0:
@@ -191,14 +192,13 @@ def ecef_to_llh(x: float, y: float, z: float) -> Tuple[float, float]:
     return math.degrees(lat), math.degrees(lon)
 
 
-@shared_task
-def update_positions():
+def _update_positions():
     minutes_in_month = 30 * 24 * 60
 
     logger.info("Start updating positions")
     start_time = time.time()
 
-    positions_dates = [datetime.now() + timedelta(minutes=delta_minute)
+    positions_dates = [timezone.now() + timedelta(minutes=delta_minute)
                        for delta_minute in range(minutes_in_month + 1)]
     satellites = SatelliteModel.objects.filter(is_active=True).all()
     positions = []
@@ -218,3 +218,8 @@ def update_positions():
 
     PositionModel.objects.bulk_create(positions)
     logger.info(f"Successfully calculated positions. Time: {time.time() - start_time:.2f}")
+
+
+@shared_task
+def update_positions():
+    _update_positions()
