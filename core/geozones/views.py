@@ -1,8 +1,9 @@
 from django.db.models import Q
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework import generics, status, mixins
+from rest_framework import generics, status, mixins, permissions
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
+from rest_framework_simplejwt import authentication
 
 from geozones.models import GeozoneModel, DeprecatedGeozoneModel
 from geozones.serializers import GeozoneSerializer, RequestGeozoneSerializer, DeprecatedGeozoneSerializer
@@ -15,6 +16,7 @@ class GeozoneView(generics.GenericAPIView,
     request_serializer = RequestGeozoneSerializer
     serializer_class = GeozoneSerializer
     renderer_classes = [JSONRenderer]
+    authentication_classes = (authentication.JWTAuthentication,)
 
     @swagger_auto_schema(query_serializer=request_serializer(), responses={200: serializer_class(many=True)})
     def get(self, request):

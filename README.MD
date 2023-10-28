@@ -30,6 +30,16 @@ https://it-profession.fbtw.ru/admin/
 Логин: admin
 Пароль: admin
 
+## Swagger доступен по адресу:
+
+https://it-profession.fbtw.ru/apidocs/
+
+Логин: admin
+Пароль: admin
+
+## Доп репозиторий с сервисом вычислений:
+https://github.com/git-gud-casual/satellite-calculus
+
 ## Dashboard со статистикой:
 
 https://it-profession.fbtw.ru/dashboard/
