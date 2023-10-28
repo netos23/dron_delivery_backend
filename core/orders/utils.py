@@ -7,5 +7,6 @@ def get_count_photos(order: OrderModel):
 
 def get_total_price(order: OrderModel):
     cnt = get_count_photos(order)
-    price = order.tarif.base_price + order.tarif.per_photo * cnt
+    coeff = sum(order.plugins.values_list('per_photo', flat=True))
+    price = order.tarif.base_price + (order.tarif.per_photo + coeff) * cnt
     return price
