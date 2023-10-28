@@ -1,9 +1,12 @@
 from rest_framework import generics, permissions, status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from orders.models import OrderModel, TarifModel, PluginModel
 from orders.serilizers import OrderSerializer, TarifSerializer, RequestOrderSerializer, PluginSerializer
 from rest_framework_simplejwt import authentication
+
+from orders.utils import get_total_price
 
 
 # Create your views here.
@@ -12,7 +15,6 @@ class CreateOrderAPIView(generics.CreateAPIView):
     authentication_classes = (authentication.JWTAuthentication,)
     serializer_class = RequestOrderSerializer
     queryset = OrderModel.objects.all()
-
 
     def create(self, request, *args, **kwargs):
         data = request.data
@@ -48,6 +50,26 @@ class GetAllTarifsAPIView(generics.ListAPIView):
     serializer_class = TarifSerializer
     queryset = TarifModel.objects.all()
 
+
 class GetAllPluginsAPIView(generics.ListAPIView):
     serializer_class = PluginSerializer
     queryset = PluginModel.objects.all()
+
+
+class OrderDetailView(generics.RetrieveAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    authentication_classes = (authentication.JWTAuthentication,)
+    serializer_class = OrderSerializer
+
+
+    def get_queryset(self):
+        user = self.request.user
+        return OrderModel.objects.filter(user=user)
+
+    def get_object(self):
+        queryset = self.get_queryset()
+        order_id = self.kwargs["pk"]
+        order = queryset.get(id=order_id)
+        order.price = get_total_price(order)
+        order.save()
+        return order

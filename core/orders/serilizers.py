@@ -18,8 +18,6 @@ class RequestOrderSerializer(serializers.ModelSerializer):
 
 
 
-
-
 class TarifSerializer(serializers.ModelSerializer):
     class Meta:
         model = TarifModel

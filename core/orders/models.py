@@ -15,6 +15,14 @@ class TarifModel(models.Model):
     picture = models.URLField(null=True)
 
 
+class PluginModel(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.CharField(max_length=255, null=True, blank=True)
+    per_photo = models.FloatField()
+    link = models.URLField()
+    picture = models.URLField(null=True, blank=True)
+
+
 class OrderModel(models.Model):
     STATUS_TYPE_CHOICES = [
         (0, "Created"),
@@ -25,18 +33,10 @@ class OrderModel(models.Model):
     user = models.ForeignKey(Users, on_delete=models.CASCADE)
     geozone = models.ForeignKey(GeozoneModel, on_delete=models.SET_NULL, null=True)
     satellites = models.ManyToManyField(SatelliteModel)
+    plugins = models.ManyToManyField(PluginModel)
     date_begin = models.DateTimeField()
     date_end = models.DateTimeField()
     created_at = models.DateTimeField(default=now)
     tarif = models.ForeignKey(TarifModel, on_delete=models.SET_NULL, null=True)
     price = models.FloatField()
     status = models.IntegerField(default=0, choices=STATUS_TYPE_CHOICES)
-
-
-class PluginModel(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.CharField(max_length=255, null=True, blank=True)
-    per_photo = models.FloatField()
-    link = models.URLField()
-    picture = models.URLField(null=True, blank=True)
-
