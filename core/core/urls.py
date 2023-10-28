@@ -59,6 +59,7 @@ urlpatterns = [
 
                   path("geozones/", include("geozones.urls")),
                   path("order/", include("orders.urls")),
+                  path("payment/", include("payments.urls")),
 
                   path("admin/", admin.site.urls),
 
