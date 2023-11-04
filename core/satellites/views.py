@@ -9,6 +9,7 @@ from rest_framework.views import APIView
 
 from satellites.models import SatelliteModel, PositionModel
 from satellites.serializers import SatteliteSerializer, PositionSerializer, RequestPositionSerializer
+from satellites.tasks import update_positions
 
 
 class SatelliteView(generics.GenericAPIView):
@@ -32,8 +33,6 @@ class PositionView(APIView):
         serializer = RequestPositionSerializer(data=request.query_params)
         serializer.is_valid(raise_exception=True)
         satellite_id = serializer.data.get('satellite_id')
-        positions = PositionModel.objects.filter(satellite_id=satellite_id, created_at__gte=datetime.datetime.now(),
-                                                 created_at__lte=datetime.datetime.now() + datetime.timedelta(
-                                                     minutes=120)).all()
-        positions = positions[::max(1, positions.count()//90)]
+        positions = PositionModel.objects.filter(satellite_id=satellite_id).all()
+        positions = positions[::max(1, positions.count()//3000)]
         return Response(data=self.serializer_class(positions, many=True).data, status=status.HTTP_200_OK)
